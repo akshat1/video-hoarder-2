@@ -1,6 +1,6 @@
 import { TimeStamp } from "./TimeStamp";
 
-export interface Entity {
+export interface Entity extends Record<string, unknown> {
   id: string,
   createdAt: TimeStamp,
   createdBy: string,

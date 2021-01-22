@@ -11,7 +11,7 @@ enum Priority {
   all = -1,
 }
 
-interface Logger {
+export interface Logger {
   _shouldLog(level: Priority): boolean,
   getName() : string,
   setLevel(level:Priority): void,

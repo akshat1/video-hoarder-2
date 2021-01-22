@@ -1,21 +1,10 @@
-import * as React from 'react';
+import React from 'react';
+import { Typography } from "@material-ui/core";
 
-interface Props {
-   name:
-    string
-}
-
-class App extends React.Component<Props> {
-  render() {
-    const { name } = this.props;
-    return (
-      <>
-        <h1>
-          Hello {name}
-        </h1>
-      </>
-    );
-  }
-}
+const App:React.FunctionComponent = () => {
+  return (
+    <Typography>Hello</Typography>
+  );
+};
 
 export default App;
