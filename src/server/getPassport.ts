@@ -1,22 +1,21 @@
 /**
  * @module server/getPassport
  */
-import { getLogger } from "../logger";
-import { Callback } from "../model/Callback";
-import { getClientUser, ServerUser } from "../model/User";
+import { getLogger, Priority } from "../common/logger";
+import { Callback } from "../common/model/Callback";
+import { getClientUser, ServerUser } from "../common/model/User";
 import { getUserByUserName,getVerifiedUser } from "./db/index";
-import Base64 from "Base64";
+import { encode, decode } from "../common/Base64";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import { Application,RequestHandler } from "express";
-import expressSession from "express-session";
-import session from "express-session";
-import MemoryStore from "memorystore";
+import expressSession, { MemoryStore } from "express-session";
+import createMemoryStore from "memorystore";
 import passport, { PassportStatic } from "passport";
-import Strategy from "passport-local";
+import { Strategy } from "passport-local";
 
 const rootLogger = getLogger("getPassport");
-rootLogger.setLevel("warn");
+rootLogger.setLevel(Priority.warn);
 
 export const MessageIncorrectLogin = "Incorrect username or password.";
 
@@ -47,7 +46,7 @@ export const verifyUser = async (userName: string, password: string, cb: Callbac
  */
 export const serializeUser = (user: ServerUser, cb: Callback): void => {
   rootLogger.debug("serialize user")
-  cb(null, Base64.btoa(user.userName));
+  cb(null, encode(user.userName));
 };
 
 /**
@@ -58,7 +57,7 @@ export const deserializeUser = async (id: string, cb: Callback): Promise<any> =>
   const logger = getLogger("deserializeUser", rootLogger);
   logger.debug(id);
   try {
-    const userName = Base64.atob(id);
+    const userName = decode(id);
     logger.debug(userName);
     const user = await getUserByUserName(userName);
     logger.debug(user);
@@ -69,7 +68,7 @@ export const deserializeUser = async (id: string, cb: Callback): Promise<any> =>
   }
 };
 
-let instance;
+let instance:PassportStatic;
 /**
  * @returns passport.js instance.
  */
@@ -82,6 +81,7 @@ export const getPassport = (): PassportStatic => {
       passwordField: "password",
     }, verifyUser);
     passport.use(localStrategy);
+    // @ts-ignore
     passport.serializeUser(serializeUser);
     passport.deserializeUser(deserializeUser);
     instance = passport;
@@ -92,20 +92,20 @@ export const getPassport = (): PassportStatic => {
 export const SessionDuration: number = 24 * 60 * 60 * 1000;
 export const Secret:string = new Date(Date.now() + Math.random()).toUTCString();
 
-let sessionStore;
+let sessionStore: MemoryStore;
 /**
  * @returns the singleton instance of the session store.
  */
-export const getSessionStore = (): session.MemoryStore => {
+export const getSessionStore = (): expressSession.MemoryStore => {
   if (!sessionStore) {
     getLogger("getSessionStore", rootLogger).debug("Create new instance of MemoryStore");
-    sessionStore = new (MemoryStore(expressSession))({ checkPeriod: SessionDuration });
+    sessionStore = new (createMemoryStore(expressSession))({ checkPeriod: SessionDuration });
   }
 
   return sessionStore;
 };
 
-let sessionMiddleware;
+let sessionMiddleware:RequestHandler;
 /**
  * @returns the singleton instance of the session middleware.
  */

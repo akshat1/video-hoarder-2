@@ -2,7 +2,7 @@
  * @module logger
  */
 
-enum Priority {
+export enum Priority {
   log = 6,   // Use this for stuff you always want to log.
   error = 5,
   warn = 4,

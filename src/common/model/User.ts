@@ -13,7 +13,7 @@ export interface User {
   userName: string,
 }
 
-export interface ServerUser extends Entity, User {
+export interface ServerUser extends Entity, User, Express.User {
   password: string,
   salt: string,
 }
@@ -29,9 +29,9 @@ const ClientUserFields = [
  * Takes a user as returned from the database and sets the loggedIn flag while removing the password and salt fields.
  */
 // @ts-ignore
-export const getClientUser = (user: ServerUser): User => ({
-  ..._.pick(user, ClientUserFields),
-  loggedIn: true,
+export const getClientUser = (user: ServerUser|null): User => ({
+  ...(user ? _.pick(user, ClientUserFields) : {}),
+  loggedIn: !!user,
 });
 
 export const DummyUser: User = {

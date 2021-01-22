@@ -1,7 +1,7 @@
 import { getInstance } from "./net";
 import { getLogger } from "../../common/logger";
-import { actionCreatorFactory, AsyncActionCreator, Dispatch } from "./boilerplate";
-import { User as UserModel } from "../../common/model/User";
+import { actionCreatorFactory, AsyncActionCreator, Dispatch, reducerFactory } from "./boilerplate";
+import { User as UserModel, DummyUser } from "../../common/model/User";
 
 const rootLogger = getLogger("redux/session-management");
 
@@ -45,3 +45,8 @@ export const doLogIn = (username: string, password: string): AsyncActionCreator 
         }
      }
   };
+
+export const fetchingUser = reducerFactory<boolean>(FetchingUser, false);
+export const user = reducerFactory<UserModel>(User, DummyUser);
+export const userFetchDone = reducerFactory<boolean>(UserFetchDone, false);
+export const loginError = reducerFactory<Error>(LoginError, null);

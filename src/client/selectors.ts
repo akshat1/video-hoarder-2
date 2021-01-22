@@ -1,9 +1,8 @@
-import { ClientStoreState } from "../model/ClientStoreState";
-import { Item } from "../model/Item";
-import { Notification } from "../model/Notification";
-import { StatusFilterValue } from "../model/Status";
-import { User } from "../model/User";
-// @ts-ignore
+import { ClientStoreState } from "../common/model/ClientStoreState";
+import { Item } from "../common/model/Item";
+import { Notification } from "../common/model/Notification";
+import { StatusFilterValue } from "../common/model/Status";
+import { User } from "../common/model/User";
 import _ from "lodash";
 
 export const getUser = (state: ClientStoreState): User => state.user;
