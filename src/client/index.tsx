@@ -6,7 +6,7 @@ import { ThemeProvider } from "@material-ui/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { getTheme } from "./theme";
 import { Provider } from "react-redux";
-import App from './App';
+import { App } from './components/App';
 import { getStore } from './redux/store';
 
 const Main:React.FunctionComponent = () => {
