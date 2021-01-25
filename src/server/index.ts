@@ -1,14 +1,13 @@
 import { getLogger } from "../common/logger";
+import { getRouter as getAPI } from "./api";
 import { getConfig } from "./config";
 import { initialize as initializeDB } from "./db";
-import bodyParser from "body-parser";
-import express, { Application, Request, Response } from "express";
-import fs from "fs";
-import http from "http";
-import path from "path";
 import { requestLogger } from "./express-middleware";
 import { bootstrap as bootstrapPassport, getPassport } from "./getPassport";
-import { getRouter as getAPI } from "./api";
+import bodyParser from "body-parser";
+import express, { Application } from "express";
+import http from "http";
+import path from "path";
 
 
 const rootLogger = getLogger("server");

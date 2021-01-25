@@ -1,11 +1,11 @@
+import { ClientStoreState } from "../../common/model/ClientStoreState";
 import { doLogIn } from "../redux/session-management";
 import { getLoginError, isFetchingUser, isLoggedIn } from "../selectors";
-import { Button, Theme, Container, TextField, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
 import { If } from "./ControlStatements";
+import { Button, Container, TextField, Theme, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
 import React, { useState } from "react";
 import { connect, useDispatch } from "react-redux";
-import { ClientStoreState } from "../../common/model/ClientStoreState";
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -33,8 +33,8 @@ interface IsSubmitDisabledArgs {
   loggedIn: boolean
   password: string
   userName: string
-};
-export const isSubmitDisabled = ({ loggedIn, fetchingUser, userName, password }: IsSubmitDisabledArgs) =>
+}
+export const isSubmitDisabled = ({ loggedIn, fetchingUser, userName, password }: IsSubmitDisabledArgs): boolean =>
   loggedIn || fetchingUser || !(userName && password);
 
 interface OwnProps {

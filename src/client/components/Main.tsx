@@ -1,25 +1,15 @@
-import React, { FunctionComponent } from "react";
-import { Container, makeStyles, Theme, Typography } from "@material-ui/core";
-import { connect } from "react-redux";
-import { ClientStoreState } from "../../common/model/ClientStoreState";
-import { getUserName } from "../selectors";
 import { Toolbar } from "./Toolbar";
+import { Container, makeStyles } from "@material-ui/core";
+import React, { FunctionComponent } from "react";
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles(() => ({
   container: {
     height: "100vh",
     padding: 0,
-  }
+  },
 }));
 
-interface StoreProps {
-  userName: string
-}
-
-export type Props = StoreProps;
-
-const MainInternal:FunctionComponent<Props> = (props) => {
-  const { userName } = props;
+export const Main:FunctionComponent = () => {
   const classes = useStyles();
   return (
     <Container className={classes.container}>
@@ -27,9 +17,3 @@ const MainInternal:FunctionComponent<Props> = (props) => {
     </Container>
   );
 };
-
-const mapStateToProps = (state: ClientStoreState): StoreProps => ({
-  userName: getUserName(state),
-});
-
-export const Main = connect(mapStateToProps)(MainInternal);

@@ -1,4 +1,4 @@
-import DefaultConfig from "../common/DefaultConfig.js";
+import DefaultConfig from "../common/DefaultConfig";
 import fs from "fs";
 import _ from "lodash";
 import path from "path";
@@ -6,7 +6,7 @@ import path from "path";
 interface Config {
   serverPath: string
   serverPort: number
-};
+}
 
 let finalConfig: Config;
 

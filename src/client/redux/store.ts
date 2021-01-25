@@ -1,9 +1,9 @@
 import { rootReducer } from "./reducers";
-import { Store, applyMiddleware, compose, createStore } from "redux";
+import { applyMiddleware, compose, createStore,Store } from "redux";
 import thunk from "redux-thunk";
 
 let store:Store;
-export const getStore = () => {
+export const getStore = ():Store => {
   if (!store) {
     const middlewares = [thunk];
     /* istanbul ignore next. We'll figure out the devtools branch when we mock the window. */

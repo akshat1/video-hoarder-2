@@ -1,11 +1,11 @@
-import _, { DebouncedFunc } from "lodash";
-import { promises as fs } from "fs";
-import path from "path";
-import { Role, ServerUser } from "../../common/model/User";
-import { v4 } from "uuid";
 import { getLogger, Logger } from "../../common/logger";
 import { Entity } from "../../common/model/Entity";
 import { Item } from "../../common/model/Item";
+import { ServerUser } from "../../common/model/User";
+import { promises as fs } from "fs";
+import _, { DebouncedFunc } from "lodash";
+import path from "path";
+import { v4 } from "uuid";
 
 // TingoDB has not been updated in the last few years.
 // And having a full blown DB is overkill for something that will almost always have a single user.
@@ -16,7 +16,7 @@ import { Item } from "../../common/model/Item";
 
 type Query = Object;
 
-export const makeRecord = (stub: Record<string, unknown>, updatedBy: string) => {
+export const makeRecord = (stub: Record<string, unknown>, updatedBy: string):Record<string, unknown> => {
   const timeStamp = new Date().toISOString();
   return {
     ...stub,
@@ -31,7 +31,7 @@ export const makeRecord = (stub: Record<string, unknown>, updatedBy: string) => 
 type OnMutateType = DebouncedFunc<() => Promise<void>>;
 
 interface CollectionArgs<ValueType extends Entity> {
-  records: Entity[]
+  records: ValueType[]
   onMutate: OnMutateType
   name: string
 }
@@ -128,7 +128,7 @@ class Collection<ValueType extends Entity> {
 const dummyCollection = new Collection<Entity>({
   records: [],
   onMutate: _.debounce(() => Promise.resolve(), 5000),
-  name: "dummy"
+  name: "dummy",
 });
 
 /**
@@ -160,7 +160,7 @@ class Database {
       try {
         // If an error occurrs, assume the file doesn't exist and carry on. We'll create a new file
         // when we write to disk.
-        const buff = (await fs.readFile(this.location, 'utf-8'));
+        const buff = (await fs.readFile(this.location, "utf-8"));
         logger.debug("Got JSON from disk");
         data = JSON.parse(buff.toString());
         logger.debug("Parsed");
@@ -194,7 +194,7 @@ class Database {
       2,
     );
     logger.debug("Write to disk");
-    await fs.writeFile(this.location, buff, 'utf-8');
+    await fs.writeFile(this.location, buff, "utf-8");
     logger.debug("Done");
   }, 5000);
 

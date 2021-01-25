@@ -1,4 +1,5 @@
-import React, { useState, CSSProperties } from "react";
+import { doLogOut } from "../redux/session-management";
+import { If } from "./ControlStatements";
 import {
   AppBar,
   Fade,
@@ -7,15 +8,12 @@ import {
   makeStyles,
   Menu,
   MenuItem,
-  Theme,
   Toolbar as MuiToolbar,
   Typography,
 } from "@material-ui/core";
-import { connect, useDispatch } from "react-redux";
-import { ClientStoreState } from "../../common/model/ClientStoreState";
-import { If } from "./ControlStatements";
 import { AccountBox, Add, ArrowBack, ExitToApp, Settings } from "@material-ui/icons";
-import { doLogOut } from "../redux/session-management";
+import React, { CSSProperties,useState } from "react";
+import { connect, useDispatch } from "react-redux";
 
 interface StoreProps {
   showBackButton: boolean,
@@ -27,10 +25,10 @@ const getMenuStyle = (anchorEl:HTMLElement): CSSProperties => ({
   marginTop: anchorEl ? `${anchorEl.getBoundingClientRect().height}px` : undefined,
 });
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles(() => ({
   toolbarCentralSpacer: {
     flexGrow: 1,
-  }
+  },
 }));
 
 const ToolbarInternal:React.FunctionComponent<Props> = (props) => {
@@ -124,7 +122,7 @@ const ToolbarInternal:React.FunctionComponent<Props> = (props) => {
 };
 
 // TODO: Flesh this one out.
-const mapStateToProps = (state: ClientStoreState): StoreProps => ({
+const mapStateToProps = (): StoreProps => ({
   showBackButton: true,
   showSettingsButton: true,
 });

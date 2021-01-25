@@ -1,17 +1,17 @@
-import React, { Fragment, useEffect } from 'react';
-import { connect, useDispatch } from "react-redux";
-import { Typography } from "@material-ui/core";
-import { ClientStoreState } from '../../common/model/ClientStoreState';
-import { isLoggedIn, isFetchingUser } from '../selectors';
+import { ClientStoreState } from "../../common/model/ClientStoreState";
+import { fetchUser } from "../redux/session-management";
+import { isFetchingUser,isLoggedIn } from "../selectors";
 import { If } from "./ControlStatements";
-import { LoginForm } from './LoginForm';
-import { fetchUser } from '../redux/session-management';
-import { Main } from './Main';
+import { LoginForm } from "./LoginForm";
+import { Main } from "./Main";
+import { Typography } from "@material-ui/core";
+import React, { Fragment, useEffect } from "react";
+import { connect, useDispatch } from "react-redux";
 
 interface StoreProps {
   loggedIn: boolean,
   loggingIn: boolean,
-};
+}
 
 export type Props = StoreProps;
 
@@ -22,7 +22,7 @@ const AppInternal: React.FunctionComponent<Props> = (props) => {
   } = props;
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log('Fetch user');
+    console.log("Fetch user");
     dispatch(fetchUser());
   }, []);
   return (

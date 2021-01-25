@@ -1,11 +1,11 @@
-import { Event } from "../../common/Event";
-import { getLogger } from "../../common/logger";
-import { Item, ItemMetadata,makeItem, markItemCanceled,markItemFailed,markItemSuccessful, setMetadata } from "../../common/model/Item";
-import { emit } from "../event-bus";
+// import { Event } from "../../common/Event";
+// import { getLogger } from "../../common/logger";
+// import { Item, ItemMetadata,makeItem, markItemCanceled,markItemFailed,markItemSuccessful, setMetadata } from "../../common/model/Item";
+// import { emit } from "../event-bus";
 // import { find, findOne, getJobsCollection,insert, remove, update } from "./util";
 // import { Cursor,Query } from "tingodb";
 
-const rootLogger = getLogger("job-management");
+// const rootLogger = getLogger("job-management");
 
 /**
  * This will emit 'ItemAdded' event.

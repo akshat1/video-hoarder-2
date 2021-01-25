@@ -1,0 +1,9 @@
+node_modules
+dist
+app
+coverage
+docs
+.storybook
+// Temp, until we migrate these to TS
+*.test.js
+*.js

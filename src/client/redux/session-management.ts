@@ -1,7 +1,7 @@
-import { getInstance } from "./net";
 import { getLogger } from "../../common/logger";
+import { DummyUser,User as UserModel } from "../../common/model/User";
 import { actionCreatorFactory, AsyncActionCreator, Dispatch, reducerFactory } from "./boilerplate";
-import { User as UserModel, DummyUser } from "../../common/model/User";
+import { getInstance } from "./net";
 
 const rootLogger = getLogger("redux/session-management");
 

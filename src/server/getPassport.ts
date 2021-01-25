@@ -1,11 +1,11 @@
 /**
  * @module server/getPassport
  */
+import { decode,encode } from "../common/Base64";
 import { getLogger, Priority } from "../common/logger";
 import { Callback } from "../common/model/Callback";
 import { getClientUser, ServerUser } from "../common/model/User";
 import { getUserByUserName,getVerifiedUser } from "./db/index";
-import { encode, decode } from "../common/Base64";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import { Application,RequestHandler } from "express";

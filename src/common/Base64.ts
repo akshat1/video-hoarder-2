@@ -4,7 +4,7 @@
  * @returns Base64 encoded string.
  */
 export const encode = (input: string): string =>
-  Buffer.from(input, 'utf-8').toString('base64');
+  Buffer.from(input, "utf-8").toString("base64");
 
 /**
  * Decode the given Base64 encoded string.
@@ -12,4 +12,4 @@ export const encode = (input: string): string =>
  * @returns decoded string.
  */
 export const decode = (input: string): string =>
-  Buffer.from(input, 'base64').toString('utf-8');
+  Buffer.from(input, "base64").toString("utf-8");
